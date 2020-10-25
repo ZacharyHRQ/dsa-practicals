@@ -1,7 +1,0 @@
-[user]
-	email = zac.hong01@gmail.com
-	name = ZazzyDictionary
-[includeIf "gitdir:~/work/"]
-	path = ~/work/.gitconfig
-[core]
-	autocrlf = input
