@@ -21,22 +21,6 @@ int menu(){
   return input;
 }
 
-void toLower(string &target_string){
-//
-//  int i =0;
-//  char str[] = target_string;
-//  char c;
-//  while(str[i]){
-//
-//    c=str[i];
-//    putchar(tolower(c));
-//    i++;
-//
-// }
-
-
-
-}
 
 int main(){
   int user_input;
@@ -60,11 +44,9 @@ int main(){
       string name , tel;
       cout << "What is the person's name : ";
       cin >> name;
-      cin.ignore(256, '\n');
       transform(name.begin(), name.end(), name.begin(), ::tolower);
       cout << "What is the person's telephone number : ";
       cin >> tel;
-      cin.ignore(256, '\n');
       personList.add(Person(name,tel));
     }
     else if(user_input == 3){ 
@@ -83,7 +65,6 @@ int main(){
       string name ;
       cout << "What is the person's name : ";
       cin >> name;
-      cin.ignore(256, '\n');
       transform(name.begin(), name.end(), name.begin(), ::tolower);
       Person person = personList.search(name);
       cout << "The contact number of " << person.getName() << " is " << person.getTelNo() << endl;
