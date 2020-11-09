@@ -5,14 +5,12 @@ using namespace std;
 List::List(){ size = 0;}
 
 List::~List(){
-
   Node *current = firstNode;
   while(current->next){ 
     Node *tmp = current;
     current = current->next;
     delete tmp;
   }
-
 }
 
 bool List::add(ItemType item){ 
