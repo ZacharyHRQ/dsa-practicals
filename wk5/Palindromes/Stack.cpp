@@ -51,26 +51,3 @@ bool Stack::pop(ItemType &item){
 void Stack::getTop(ItemType &item){
   item = topNode->item;
 }
-
-void Stack::displayInOrder(){
-  Node *curr = topNode;
-  while(curr){
-    cout << curr->item << endl;
-    curr = curr->next;
-  }
-}
-
-void Stack::displayInOrderOfInsertion(){
-  Stack historyStack;
-  Node *curr = topNode;
-  while(curr){
-    ItemType item = curr->item;
-    historyStack.push(item);
-    curr = curr->next;
-  }
-  while(!historyStack.isEmpty()){ 
-    ItemType item; 
-    historyStack.pop(item);
-    cout << item  << ' ';
-  }
-}

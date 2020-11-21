@@ -1,9 +1,10 @@
 // Stack.h (Pointer-based implementation)
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
 
-typedef int ItemType;
+typedef char ItemType;
 
 class Stack
 {
@@ -15,7 +16,6 @@ private:
 	};
 
 	Node *topNode;
-  void reccur(Node *s);
 
 public:
 	//Default constructor
@@ -38,10 +38,5 @@ public:
 	//retrieve item from top of stack
 	void getTop(ItemType &item);
 
-	//display items in stack in order
-	void displayInOrder();
-
-	//display items in stack in order of insertion
-	void displayInOrderOfInsertion();
 };
 

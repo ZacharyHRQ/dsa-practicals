@@ -15,7 +15,6 @@ private:
 	};
 
 	Node *topNode;
-  void reccur(Node *s);
 
 public:
 	//Default constructor

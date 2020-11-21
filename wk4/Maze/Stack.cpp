@@ -5,14 +5,7 @@ using namespace std;
 
 Stack::Stack(){}
 
-Stack::~Stack(){
-  Node *curr = topNode;
-  while(curr){ 
-    Node *temp = curr;
-    curr = curr->next;
-    delete temp;
-  }
-}
+Stack::~Stack(){}
 
 bool Stack::isEmpty(){
   return topNode == NULL;
@@ -62,15 +55,17 @@ void Stack::displayInOrder(){
 
 void Stack::displayInOrderOfInsertion(){
   Stack historyStack;
+  Stack* historyStackPtr = historyStack;
   Node *curr = topNode;
   while(curr){
-    ItemType item = curr->item;
-    historyStack.push(item);
+    ItemType item;
+    curr->pop(item);
+    historyStackPtr->push(item);
     curr = curr->next;
   }
-  while(!historyStack.isEmpty()){ 
-    ItemType item; 
-    historyStack.pop(item);
+  while(historyStackPtr)
+    ItemType item = historyStackPtr->getTop(item);
     cout << item  << ' ';
+    topNode->push(item);
   }
 }

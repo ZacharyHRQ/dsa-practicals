@@ -5,7 +5,14 @@ using namespace std;
 
 Stack::Stack(){}
 
-Stack::~Stack(){}
+Stack::~Stack(){
+  Node *curr = topNode;
+  while(curr){ 
+    Node *temp = curr;
+    curr = curr->next;
+    delete temp;
+  }
+}
 
 bool Stack::isEmpty(){
   return topNode == NULL;
@@ -53,14 +60,15 @@ void Stack::displayInOrder(){
   }
 }
 
-void Stack::displayInOrderOfInsertion(){
-  vector<ItemType> items;
-  Node *curr = topNode;
-  while(curr){
-    items.insert(items.begin(),curr->item);
-    curr = curr->next;
-  }
-  for(auto& i:items){
-    cout << i << ' ';
-  }
+void Stack::reccur(Node* s){ 
+  if(s == NULL) return; 
+  reccur(s->next); 
+  cout << s->item << " ";
 }
+
+void Stack::displayInOrderOfInsertion(){
+  Node *curr = topNode; 
+  reccur(curr);
+  cout << endl;
+}
+
