@@ -32,4 +32,4 @@
 *.app
 
 .gitconfig
-
+.DS_Store
