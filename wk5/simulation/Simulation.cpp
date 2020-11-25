@@ -16,7 +16,7 @@ void addCustomer(Queue &queue ,int &qnum){
 int main(){
   srand(1);
   int num_of_customers , time_of_simulation , curr_time , qnum , stats;
-  Queue queue = Queue();
+  Queue queue();
   time_of_simulation = rand()%100;
   curr_time = 0;
   qnum = 0;
@@ -36,20 +36,11 @@ int main(){
     string name;
     switch(k){ 
       case 1: 
-        cout << "Enter Customer name: ";
-        cin >> name;
-        qnum++;
-        queue.enqueue(Customer(name,qnum));
+        addCustomer(queue,qnum)
         break;
       case 2:
-        cout << "Enter Customer name: ";
-        cin >> name;
-        qnum++;
-        queue.enqueue(Customer(name,qnum));
-        cout << "Enter Customer name: ";
-        cin >> name;
-        qnum++;
-        queue.enqueue(Customer(name,qnum));
+        addCustomer(queue,qnum)
+        addCustomer(queue,qnum)
         break;
     }
     stats = curr_time/num_of_customers;
