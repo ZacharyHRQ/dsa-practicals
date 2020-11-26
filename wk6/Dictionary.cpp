@@ -24,39 +24,44 @@ int charvalue(char c)
 }
 
 
-int Dictionary::hash(KeyType key){ 
-    int total = 0;
-    for(char k : key){ 
-      total += charvalue(k);
-    }
-    return total%MAX_SIZE;
+int Dictionary::hash(KeyType key)
+{
+	int total = charvalue(key[0]);
+
+	for (int i = 1; i < key.length(); i++)
+	{
+		if (charvalue(key[i]) < 0)  // not an alphabet
+			continue;
+		total = total * 52 + charvalue(key[i]);
+	  total %= MAX_SIZE;
+	}
+
+  return total;
 }
 
 bool Dictionary::add(KeyType newKey, ItemType newItem){  
   int index = hash(newKey);
   Node* curr = items[index];
-  if (items[index] == NULL){ 
+
     Node *newNode = new Node;
     newNode->item = newItem;
     newNode->key = newKey;
     newNode->next = NULL;
+  if (items[index] == NULL){ 
     items[index] = newNode;
   }
   else{
     if (curr->key == newKey){
       return false;
     }
-    while(curr){
+    while(curr->next){
       curr = curr->next;
       if (curr->key== newKey){ 
         return false;
       }
     }
-    Node *newNode = new Node;
-    newNode->item = newItem;
-    newNode->key = newKey;
-    newNode->next = NULL;
-    curr = newNode;
+
+    curr->next = newNode;
   }
   size++;
   return true;
@@ -65,18 +70,30 @@ bool Dictionary::add(KeyType newKey, ItemType newItem){
 void Dictionary::remove(KeyType key){
   int index = hash(key);
   Node *curr = items[index]; 
-  if(items[index] != NULL){
-    Node* prev;
-    while(curr->key != key){ 
-      prev = curr;
-      curr = curr->next;
+  if(curr){
+
+
+    if(curr->key == key){
+
+      Node* temp = curr->next;
+      delete  curr->next;
+      items[index] = temp;
+
+
+    }else{
+      while(curr->next){
+        if(curr->next->key == key){
+
+          Node* temp = curr->next->next;
+          curr->next->next = NULL;
+          delete curr->next; 
+          curr->next = temp;
+
+        }
+      }
     }
-    Node* tmp = curr; 
-    prev->next = curr->next;
-    tmp->next = NULL;
-    delete tmp;
-  }
   size--;
+  }
 }
 
 ItemType Dictionary::get(KeyType key){
