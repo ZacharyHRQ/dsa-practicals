@@ -42,11 +42,10 @@ int Dictionary::hash(KeyType key)
 bool Dictionary::add(KeyType newKey, ItemType newItem){  
   int index = hash(newKey);
   Node* curr = items[index];
-
-    Node *newNode = new Node;
-    newNode->item = newItem;
-    newNode->key = newKey;
-    newNode->next = NULL;
+  Node *newNode = new Node;
+  newNode->item = newItem;
+  newNode->key = newKey;
+  newNode->next = NULL;
   if (items[index] == NULL){ 
     items[index] = newNode;
   }
@@ -60,7 +59,6 @@ bool Dictionary::add(KeyType newKey, ItemType newItem){
         return false;
       }
     }
-
     curr->next = newNode;
   }
   size++;
@@ -71,25 +69,19 @@ void Dictionary::remove(KeyType key){
   int index = hash(key);
   Node *curr = items[index]; 
   if(curr){
-
-
     if(curr->key == key){
-
       Node* temp = curr->next;
       delete  curr->next;
       items[index] = temp;
-
-
     }else{
       while(curr->next){
         if(curr->next->key == key){
-
           Node* temp = curr->next->next;
           curr->next->next = NULL;
           delete curr->next; 
           curr->next = temp;
-
         }
+        curr = curr->next;
       }
     }
   size--;
