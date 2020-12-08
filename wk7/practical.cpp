@@ -2,7 +2,7 @@
 using namespace std;
 
 long power(int a, int n){
-  if(a > 0) return 0;
+  if(a < 0) return 0;
   if(n == 0) return 1; 
   return a*power(a,n-1);
 }
@@ -24,9 +24,13 @@ int maxArray(int array[] , int start , int end){
 }
 
 int main(){
-  //1
-  cout << power(0,3) << endl;
 
+  //1
+
+  int base = 0;
+  int power_of_base = 2;
+  cout << "The result of " << base << " to the power of " << power_of_base << " is ";
+  cout << power(base,power_of_base) << endl;
   //2
   int nums[] = {1,2,3,4};
   int n = sizeof(nums)/sizeof(nums[0]);
