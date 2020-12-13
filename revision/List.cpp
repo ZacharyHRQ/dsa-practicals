@@ -3,6 +3,7 @@
 #include "List.h"	// firstNodeer file
 #include <cstddef>  // for NULL
 #include <new>      // for bad_alloc
+#include <set>      // for bad_alloc
 
 // constructor
 List::List()
@@ -146,7 +147,7 @@ void List::sortedInsert(ItemType item)
     newNode->item = item;
     newNode->next = NULL;
     Node* curr = firstNode;
-    while(curr->next && item >= curr->next->item ){ 
+    while(curr->next && item >= curr->next->item ){
       curr = curr->next;
     }
     newNode->next = curr->next;
@@ -154,21 +155,21 @@ void List::sortedInsert(ItemType item)
 }
 
 
-List::Node* List::sortedMerge(Node*& a, Node*& b) 
+List::Node* List::sortedMerge(Node*& a, Node*& b)
 {
 	//to be implemented
   Node* mergedList = new Node;
   Node* curr = mergedList;
   while(a->next != NULL && b->next != NULL){
     Node* newNode = new Node;
-    if(a->item < b->item){ 
+    if(a->item < b->item){
       newNode->item = a->item;
       newNode->next = NULL;
       curr->next = newNode;
       a = a->next;
     }
-    else{ 
-      newNode->item = b->item; 
+    else{
+      newNode->item = b->item;
       newNode->next = NULL;
       curr->next = newNode;
       b = b->next;
@@ -179,5 +180,98 @@ List::Node* List::sortedMerge(Node*& a, Node*& b)
   return mergedList;
 }
 
+int List::count(ItemType item){
+  int count = 0;
+  Node* curr = firstNode;
+  while(curr->next){
+    if (curr->item == item) count ++;
+    curr = curr->next;
+  }
+  return count;
+}
 
-//The time complexity of sortedInsert is O(N) while it is sortedMerge() is O(N).
+int List::Rcount(Node* temp , ItemType item){ 
+  if(temp == NULL) return 0;
+  return (Rcount(temp->next,item) + ((temp->item == item)? 1:0));
+}
+
+int List::countR(ItemType item){
+   
+  return Rcount(firstNode,item);
+
+}
+
+void List::reverse(){
+  Node* curr = firstNode;
+  Node* prev  = NULL;
+  Node* next = NULL;
+  while(curr != NULL){
+    next = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = next;
+  }
+  firstNode = prev;
+}
+ 
+void List::reverseR(){ 
+
+  helperReverse(firstNode);
+}
+
+List::Node* List::helperReverse(Node* temp){ 
+  if(temp == NULL) return NULL;
+  if(temp->next == NULL) { 
+    firstNode = temp;
+    return temp;
+  }
+  Node* node = helperReverse(temp->next);
+  node->next = temp;
+  temp->next = NULL;
+  return temp;
+}
+
+void List::removeDups(){ 
+  Node* curr = firstNode;
+  while(curr->next){ 
+    while(curr->next && curr->item == curr->next->item){ 
+      curr->next = curr->next->next;
+    }
+    curr = curr->next;
+  }
+}
+
+void List::removeDupsUnsorted(){ 
+  set<int> seen;
+  Node* curr = firstNode;
+  while(curr->next){
+    if(curr->next->next && seen.find(curr->item) != seen.end()){ 
+      curr->next = curr->next->next;
+    }
+    else{ 
+      seen.insert(curr->item);
+    }
+    curr = curr->next;
+  }
+}
+
+void List::reverseAt(int start, int end){
+  Node* d = new Node;
+  d->next = firstNode;
+  Node* curr = firstNode , *prev = d;
+  for(int i = 0; i<start-1; i++){ 
+    curr = curr->next;
+    prev = prev->next;
+  }
+  Node* temp = NULL; 
+  for(int i =0; i < end-start+1; i++){
+    Node* next = curr->next;
+    curr->next = temp; 
+    temp = curr; 
+    curr = next;
+  }
+  prev->next->next = curr; 
+  prev->next = temp; 
+
+  firstNode = d->next; 
+} 

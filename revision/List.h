@@ -70,4 +70,21 @@ public:
 	void sortedInsert(ItemType item);
 
 	Node* sortedMerge(Node*& list1, Node*& list2);
+  
+  int count(ItemType item);
+
+  int countR(ItemType item);
+
+  void reverse();
+
+  void reverseR();
+
+  int Rcount(Node* temp , ItemType item);
+
+  Node* helperReverse(Node* temp);
+
+  void removeDups();
+  void removeDupsUnsorted();
+  void Dup2();
+  void reverseAt(int start , int end);
 };

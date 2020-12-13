@@ -1,20 +1,24 @@
 #include <iostream>
-#include "List.h"
+#include "List.h" 
 using namespace std;
-int main(){ 
 
-  List list;
-  list.add(1);
-  list.add(2);
-  list.add(3);
-  list.add(4);
+void f(int& i){ 
+  cout << i << endl;
+}
 
-  list.sortedInsert(5);
-  //list.sortedInsert(0);
+int main(){
+  List l;
+  l.add(1);
+  l.add(2);
+  l.add(3);
+  l.add(4);
+  l.add(5);
 
-  list.print();
-  
-
+  l.print();
+  cout << endl;
+  l.reverseAt(2,4);
+  l.print();
+  cout << endl;
 
 }
 
