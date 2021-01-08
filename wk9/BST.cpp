@@ -199,6 +199,7 @@ bool BST::isBalanced(BinaryNode* t)
 {
   int l = countNodes(t->left);
   int r = countNodes(t->right);
-	return l == r;
+  if (abs(l-r) <= 1) return true;
+  return false;
 }
 
